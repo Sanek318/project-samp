@@ -1,5 +1,14 @@
+//======================== include's
 #include <a_samp>
+#include <mysql>
 
+//======================== Color's
+#define		COLOR_WHITE     0xFFFFFFFF
+
+//======================== Define's
+#define     SCM     SendClientMessage
+
+//======================== Forward's
 
 main()
 {
