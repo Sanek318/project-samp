@@ -243,17 +243,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]){
                                 return 1;
                         }
                     if(!strlen(inputtext)) { // Если поле ввода пустое.
-                        new dialog[134+MAX_PLAYER_NAME];
-                            format(dialog, sizeof(dialog),
-                                        "Добро пожаловать на Сервер!\n\
-                                        Этот аккаунт зарегистрирован.\n\n\
-                                        Логин: %s\n\
-                                        Введите пароль:",
-                                        playerVariable[playerid][aName]);
-                                ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_INPUT, "Авторизация.", dialog, "Войти", "Отмена");
-                                return 1;
-                        }
-                        LoadAccount(playerid, inputtext); // Пробуем его авторизовать.
+                    new dialog[134+MAX_PLAYER_NAME];
+                    format(dialog, sizeof(dialog),
+                                    "Добро пожаловать на Сервер!\n\
+                                    Этот аккаунт зарегистрирован.\n\n\
+                                    Логин: %s\n\
+                                    Введите пароль:",
+                                    playerVariable[playerid][aName]);
+                    ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_INPUT, "Авторизация.", dialog, "Войти", "Отмена");
+                    return 1;
+                    }
+                	LoadAccount(playerid, inputtext); // Пробуем его авторизовать.
                 }
                 case DIALOG_REGISTER: { // Диалог регистрации.
                     if(!response) { // Если нажал "Отмена".
@@ -261,7 +261,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]){
                                 Kick(playerid);
                                 return 1;
                         }
-                        if(!strlen(inputtext) || strlen(inputtext) < 6 || strlen(inputtext) > 64) { // Если пустое поле ввода или пароль имеет меньше 6 или больше 64 символов
+                	if(!strlen(inputtext) || strlen(inputtext) < 6 || strlen(inputtext) > 64) { // Если пустое поле ввода или пароль имеет меньше 6 или больше 64 символов
                                 new dialog[380+24+10];
                                 format(dialog, sizeof(dialog),
                                         "Добро пожаловать на Сервер!\n\
@@ -275,9 +275,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]){
                                 ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Регистрация.", dialog, "Далее", "Отмена");
                                 return 1;
                         }
-                        CreateAccount(playerid, inputtext); // Создаём аккаунт.
-                        playerVariable[playerid][aLogged] = true; // Авторизуем игрока. <img src='http://pawn-wiki.ru/public/style_emoticons/<#EMO_DIR#>/smile.gif'
- class='bbc_emoticon' alt=':)' />
+                    CreateAccount(playerid, inputtext); // Создаём аккаунт.
+                    playerVariable[playerid][aLogged] = true; // Авторизуем игрока. <img src='http://pawn-wiki.ru/public/style_emoticons/<#EMO_DIR#>/smile.gif'class='bbc_emoticon' alt=':)' />
                 }
                 case DIALOG_WRONGPAS: { // Если неверный пароль.
                         if(response) {
@@ -336,8 +335,8 @@ stock CreateAccount(playerid, password[]) {
         format(query, sizeof(query), "INSERT INTO `Accounts` (`Nickname`, `Password`) VALUE ('%s', '%s')", sqlname, sqlpassword); // Добавляем в таблицу запись.
         // INSERT - добавление записи в таблицу, 1. () - поля. 2. VALUE - значения этих полей.
         mysql_query(query); // Отправляем запрос.
-    GetAccountID(playerid); // Узнаём ИД аккаунта, будет использоваться для сохранения и прочих операций.
-    strmid(playerVariable[playerid][aPassword], password, 0, 64, 255); // Внедряем в массив аккаунта введенный игроком пароль.
+	    GetAccountID(playerid); // Узнаём ИД аккаунта, будет использоваться для сохранения и прочих операций.
+	    strmid(playerVariable[playerid][aPassword], password, 0, 64, 255); // Внедряем в массив аккаунта введенный игроком пароль.
         playerVariable[playerid][aLogged] = true; // Мы авторизованы.
         return 1;
 }
@@ -358,9 +357,9 @@ stock LoadAccount(playerid, password[]) {
                         playerVariable[playerid][aID],
                         playerVariable[playerid][aName],
                         playerVariable[playerid][aPassword]);
-                playerVariable[playerid][aLogged] = true;
-                mysql_free_result(); // Очищаем память.
-                return 1;
+       	playerVariable[playerid][aLogged] = true;
+        mysql_free_result(); // Очищаем память.
+        return 1;
         }
         else { // Мы ввели неверный пароль.
             if(playerVariable[playerid][aWrongPassword] == 4) {
@@ -368,10 +367,10 @@ stock LoadAccount(playerid, password[]) {
                         Kick(playerid);
                         return 1;
                 }
-                format(dialog, sizeof(dialog),
-                        "Вы ввели неверный пароль.\n\
-                        У Вас осталось %i/3 попыток ввода.", 3 - playerVariable[playerid][aWrongPassword]);
-                ShowPlayerDialog(playerid, DIALOG_WRONGPAS, DIALOG_STYLE_MSGBOX, "Ошибка.", dialog, "Повтор", "Отмена");
+        	format(dialog, sizeof(dialog),
+                    "Вы ввели неверный пароль.\n\
+                    У Вас осталось %i/3 попыток ввода.", 3 - playerVariable[playerid][aWrongPassword]);
+            ShowPlayerDialog(playerid, DIALOG_WRONGPAS, DIALOG_STYLE_MSGBOX, "Ошибка.", dialog, "Повтор", "Отмена");
         }
         return 1;
 }
