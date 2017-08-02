@@ -1,0 +1,31 @@
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[16:21:04] filterscripts = ""  (string)
+[16:21:04] 
+[16:21:04] Server Plugins
+[16:21:04] --------------
+[16:21:04]  Loading plugin: mysql
+[16:21:04] 
+
+  > MySQL plugin R6-2 successfully loaded.
+
+[16:21:04]   Loaded.
+[16:21:04]  Loading plugin: sscanf2
+[16:21:04]   Failed.
+[16:21:04]  Loaded 1 plugins.
+
+[16:21:04] 
+[16:21:04] Filterscripts
+[16:21:04] ---------------
+[16:21:04]   Loaded 0 filterscripts.
+
+[16:21:04] Script[gamemodes/samp.amx]: Run time error 19: "File or function is not found"
+[16:21:04] Number of vehicle models: 0
+[16:21:21] --- Server Shutting Down.
