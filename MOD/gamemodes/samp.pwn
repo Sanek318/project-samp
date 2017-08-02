@@ -1,6 +1,6 @@
 //======================== include's
 #include <a_samp>
-#include <mysql>
+#include <a_mysql>
 
 //======================== Color's
 #define		COLOR_WHITE     0xFFFFFFFF
@@ -73,15 +73,14 @@ public OnPlayerText(playerid, text[])
 	return 1;
 }
 
-public OnPlayerCommandText(playerid, cmdtext[])
+/*public OnPlayerCommandText(playerid, cmdtext[])
 {
 	if (strcmp("/mycommand", cmdtext, true, 10) == 0)
 	{
-		// Do something here
 		return 1;
 	}
 	return 0;
-}
+}*/
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
