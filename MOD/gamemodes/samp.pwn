@@ -63,7 +63,34 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerConnect(playerid)
 {
-	return 1;
+        RemovePlayerVariables(playerid);
+//------------------------------------------------------------------------------
+        GetPlayerName(playerid, playerVariable[playerid][aName], MAX_PLAYER_NAME);
+//------------------------------------------------------------------------------
+        if(GetAccountID(playerid)) { // Аккаунт зарегистрирован
+                new dialog[128+MAX_PLAYER_NAME];
+                format(dialog, sizeof(dialog),
+                        "Добро пожаловать на Сервер!\n\
+                        Этот аккаунт зарегистрирован.\n\n\
+                        Логин: %s\n\
+                        Введите пароль:",
+                        playerVariable[playerid][aName]);
+                ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_INPUT, "Авторизация.", dialog, "Войти", "Отмена");
+        }
+        else { // Аккаунт не зарегистрирован (return 0, в функции GetAccountID, т.е. не нашло записи с аккаунтом).
+                new dialog[344+MAX_PLAYER_NAME];
+                format(dialog, sizeof(dialog),
+                        "Добро пожаловать на Сервер!\n\
+                    Этот аккаунт не зарегистрирован.\n\n\
+                    Логин: %s\n\
+                        Введите пароль и нажмите \"Далее\".\n\n\
+                        Примечания:\n\
+                        - Пароль чувствительный к регистру.\n\
+                    - Длина пароля от 6 до 32 символов.\n\
+                    - В пароле можно использовать символы на кириллице и латинице.\n", playerVariable[playerid][aName]);
+                ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Регистрация.", dialog, "Далее", "Отмена");
+        }
+		return 1;
 }
 
 public OnPlayerDisconnect(playerid, reason)
@@ -93,6 +120,7 @@ public OnVehicleDeath(vehicleid, killerid)
 
 public OnPlayerText(playerid, text[])
 {
+    if(playerVariable[playerid][aLogged] == false) return 0;
 	return 1;
 }
 
