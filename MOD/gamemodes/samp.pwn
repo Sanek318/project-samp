@@ -332,7 +332,7 @@ stock CreateAccount(playerid, password[]) {
             sqlpassword[32];
         mysql_real_escape_string(playerVariable[playerid][aName], sqlname); // Защитит от sql inject
         mysql_real_escape_string(password, sqlpassword); // Защитит от sql inject
-        format(query, sizeof(query), "INSERT INTO `Accounts` (`Nickname`, `Password`) VALUE ('%s', '%s')", sqlname, sqlpassword); // Добавляем в таблицу запись.
+        format(query, sizeof(query), "INSERT INTO `Model_User` (`Nickname`, `Password`) VALUE ('%s', '%s')", sqlname, sqlpassword); // Добавляем в таблицу запись.
         // INSERT - добавление записи в таблицу, 1. () - поля. 2. VALUE - значения этих полей.
         mysql_query(query); // Отправляем запрос.
 	    GetAccountID(playerid); // Узнаём ИД аккаунта, будет использоваться для сохранения и прочих операций.
@@ -347,7 +347,7 @@ stock LoadAccount(playerid, password[]) {
                 result[5+24+64],
                 dialog[128];
         mysql_real_escape_string(password, sqlpass); // Защита от SQL Inject, шифрует кодировку.
-        format(query, sizeof(query), "SELECT * FROM `Accounts` WHERE `Password` = '%s' AND `ID` = '%i'", sqlpass, playerVariable[playerid][aID]);
+        format(query, sizeof(query), "SELECT * FROM `Model_User` WHERE `Password` = '%s' AND `ID` = '%i'", sqlpass, playerVariable[playerid][aID]);
         // SELECT * - выбрать, FROM - с таблицы, WHERE - где, пароль равен введенному паролю и ID равен иду ника человека.
         mysql_query(query); // Отправляем запрос.
         mysql_store_result(); // Смотрим записи, которые мы выбрали запросом выше.
@@ -377,7 +377,7 @@ stock LoadAccount(playerid, password[]) {
 stock GetAccountID(playerid) {
         new
                 query[128];
-        format(query, sizeof(query),"SELECT `ID` FROM `Accounts` WHERE `Nickname` = '%s'", playerVariable[playerid][aName]);
+        format(query, sizeof(query),"SELECT `ID` FROM `Model_User` WHERE `Nickname` = '%s'", playerVariable[playerid][aName]);
         // Выбираем ID, с таблицы Accounts, где Ник равен нику игрока.
         mysql_query(query); // Отправляем запрос.
         mysql_store_result(); // Видим
@@ -398,7 +398,7 @@ stock SaveAccount(playerid) { // Сохранение аккаунта.
                         sqlpass[64];
                 mysql_real_escape_string(playerVariable[playerid][aName], sqlname);
                 mysql_real_escape_string(playerVariable[playerid][aPassword], sqlpass);
-                format(query, sizeof(query), "UPDATE `Accounts` SET `Nickname` = '%s', `Password` = '%s' WHERE `ID` = '%i'", sqlname, sqlpass, playerVariable[playerid][aID]);
+                format(query, sizeof(query), "UPDATE `Model_User` SET `Nickname` = '%s', `Password` = '%s' WHERE `ID` = '%i'", sqlname, sqlpass, playerVariable[playerid][aID]);
                 mysql_query(query); // Отправляем запрос
         }
         return 1;
